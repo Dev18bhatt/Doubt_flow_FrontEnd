@@ -11,7 +11,7 @@ const Home = () => {
                 <ul className="flex space-x-4">
 
                     <li>
-                        <a href="/profile" className="hover:text-blue-400">Profile</a>
+                        <Link to="/profilepage" className="hover:text-blue-400">Profile</Link>
                     </li>
                     <li>
                         <button className="hover:text-red-400">Logout</button>

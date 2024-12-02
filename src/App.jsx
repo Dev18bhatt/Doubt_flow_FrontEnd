@@ -5,10 +5,11 @@ import Home from "./components/questions/Home"
 import PrivateRoute from "./components/middle/Private"
 import QuestionPage from "./components/questions/QuestionPage"
 import PostQuestion from "./components/questions/PostQuestion"
-
-
+import Profile from "./components/UserProfile/profile"
+import UpdateProfile from "./components/UserProfile/UpdateProfile"
+import PostAnswer from "./components/AddAnswer/post_answer"
+import ReadAnswer from "./components/AddAnswer/ReadAnswer"
 function App() {
-
   return (
     <>
       <Routes>
@@ -18,8 +19,10 @@ function App() {
         <Route path="/home" element={<PrivateRoute Component={Home} />} />
         <Route path="/questionPage" element={<PrivateRoute Component={QuestionPage} />} />
         <Route path="/postquestionpage" element={<PrivateRoute Component={PostQuestion} />} />
-        <Route />
-
+        <Route path="/profilepage" element={<PrivateRoute Component={Profile} />} />
+        <Route path="/updateProfile" element={<PrivateRoute Component={UpdateProfile} />} />
+        <Route path="/postAnswer/:id" element={<PrivateRoute Component={PostAnswer} />} />
+        <Route path="/readAnswer" element={<ReadAnswer />} />
 
       </Routes>
 

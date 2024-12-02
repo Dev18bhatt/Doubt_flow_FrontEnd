@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function QuestionPage() {
     const [questions, setQuestions] = useState([]); // Initialize as an empty array
@@ -25,10 +26,10 @@ export default function QuestionPage() {
             });
     }, []); // Empty dependency array to run the effect only once when component mounts
 
-    const handlePostAnswer = (questionId) => {
-        console.log("Post answer for question ID:", questionId);
-        // You can open a modal or redirect to an answer page
-    };
+    // const handlePostAnswer = (questionId) => {
+    //     console.log("Post answer for question ID:", questionId);
+    //     // You can open a modal or redirect to an answer page
+    // };
 
     return (
         <div className="bg-gradient-to-r from-indigo-200 via-purple-300 to-pink-200 min-h-screen p-6">
@@ -42,12 +43,16 @@ export default function QuestionPage() {
                         {/* Flex container for title and button */}
                         <div className="flex justify-between items-center mb-4">
                             <h3 className="text-2xl font-semibold text-gray-800">{question.title}</h3>
-                            <button
-                                onClick={() => handlePostAnswer(question._id)}
-                                className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300"
-                            >
-                                Post the Answer
-                            </button>
+
+                            <Link to={`/postAnswer/${question._id}`}>
+                                <button
+                                    className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300"
+                                >
+                                    Post the Answer
+                                </button>
+                            </Link>
+
+
                         </div>
 
                         <p className="text-base text-gray-700 mb-4">{question.body}</p>
