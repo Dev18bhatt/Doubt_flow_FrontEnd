@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const PostAnswer = () => {
     const param = useParams();
@@ -15,7 +14,6 @@ const PostAnswer = () => {
     useEffect(() => {
         const fetchQuestion = async () => {
             try {
-                console.log("this is our param id", param.id);
                 const response = await fetch(
                     `http://localhost:5000/api/askquestion/getspecificQuestion/${param.id}`,
                     {
@@ -38,14 +36,10 @@ const PostAnswer = () => {
             }
         };
 
-        fetchQuestion();
-
-        const fetchAllAnswerToSpecificQuestion = async () => {
-
+        const fetchAllAnswers = async () => {
             try {
-                // http://localhost:5000/api/answer/673d8319cb3cdde796a6d150/getanswer
                 const response = await fetch(
-                    ` http://localhost:5000/api/answer/${param.id}/getanswer`,
+                    `http://localhost:5000/api/answer/${param.id}/getanswer`,
                     {
                         method: "GET",
                         headers: {
@@ -57,29 +51,21 @@ const PostAnswer = () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data.answer);
                     setExistingAns(data.answer);
+                } else {
+                    console.error("Failed to fetch answers:", await response.json());
                 }
-                else {
-                    console.error("Failed to fetch question:", await response.json());
-                }
+            } catch (err) {
+                console.error("Error fetching answers:", err);
             }
-            catch (err) {
-                console.log(err);
-            }
-        }
+        };
 
-        fetchAllAnswerToSpecificQuestion();
-
-
-
-
-
-
-    });
+        fetchQuestion();
+        fetchAllAnswers();
+    }, [param.id]);
 
     const handlePostAnswer = async () => {
-        setIsSubmitting(true); // Start submission
+        setIsSubmitting(true);
         try {
             const response = await fetch(`http://localhost:5000/api/answer/${param.id}`, {
                 method: "POST",
@@ -96,7 +82,6 @@ const PostAnswer = () => {
             if (response.ok) {
                 setTitle("");
                 setBody("");
-                console.log(response.json());
                 navigate("/home");
             } else {
                 console.error("Failed to post answer:", await response.json());
@@ -105,86 +90,97 @@ const PostAnswer = () => {
             console.error("Error posting answer:", err);
             alert("An error occurred while posting the answer.");
         } finally {
-            setIsSubmitting(false); // End submission
+            setIsSubmitting(false);
         }
     };
 
-
-
     return (
-        <div className="bg-gray-100 min-h-screen flex flex-col items-center py-12">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-                <h2 className="text-2xl font-semibold text-blue-600 mb-4">{questionTitle}</h2>
+        <div className="bg-gray-50 min-h-screen py-12">
+            <div className="container mx-auto px-4">
+                {/* Question Title */}
+                <div className="bg-white p-6 rounded-md shadow-md mb-8">
+                    <h2 className="text-3xl font-bold text-blue-600">{questionTitle}</h2>
+                </div>
 
-                <h1 className="text-3xl font-bold text-gray-800 mb-6">Post Your Answer</h1>
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        handlePostAnswer();
-                    }}
-                    className="space-y-6"
-                >
-                    <div className="mb-6">
-                        <label htmlFor="title" className="block text-gray-700 font-medium mb-2">
-                            Answer Title
-                        </label>
-                        <input
-                            type="text"
-                            id="title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Enter the title"
-                            className="w-full px-4 py-3 border rounded-md focus:ring focus:ring-blue-300 outline-none"
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-6">
-                        <label htmlFor="body" className="block text-gray-700 font-medium mb-2">
-                            Answer Body
-                        </label>
-                        <textarea
-                            id="body"
-                            value={body}
-                            onChange={(e) => setBody(e.target.value)}
-                            placeholder="Write your answer here"
-                            className="w-full px-4 py-3 border rounded-md focus:ring focus:ring-blue-300 outline-none h-32 resize-none"
-                            required
-                        ></textarea>
-                    </div>
-
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
-                        disabled={isSubmitting}
+                {/* Post Answer Form */}
+                <div className="bg-white p-8 rounded-md shadow-md mb-12">
+                    <h3 className="text-2xl font-semibold text-gray-800 mb-6">Post Your Answer</h3>
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            handlePostAnswer();
+                        }}
+                        className="space-y-6"
                     >
-                        {isSubmitting ? "Posting..." : "Post Answer"}
-                    </button>
-                </form>
+                        <div>
+                            <label htmlFor="title" className="block text-gray-700 font-medium mb-2">
+                                Answer Title
+                            </label>
+                            <input
+                                type="text"
+                                id="title"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                placeholder="Enter the title"
+                                className="w-full px-4 py-3 border rounded-md focus:ring focus:ring-blue-300 outline-none"
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="body" className="block text-gray-700 font-medium mb-2">
+                                Answer Body
+                            </label>
+                            <textarea
+                                id="body"
+                                value={body}
+                                onChange={(e) => setBody(e.target.value)}
+                                placeholder="Write your answer here"
+                                className="w-full px-4 py-3 border rounded-md focus:ring focus:ring-blue-300 outline-none h-32 resize-none"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <button
+                            type="submit"
+                            className={`w-full py-3 rounded-md text-white font-medium transition ${isSubmitting ? "bg-blue-400" : "bg-blue-500 hover:bg-blue-600"
+                                }`}
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? "Posting..." : "Post Answer"}
+                        </button>
+                    </form>
+                </div>
+                {/* Existing Answers Heading */}
+                <h2 className="text-3xl font-bold text-gray-800 mb-6 mt-12 text-center">
+                    Existing Answers
+                </h2>
+
+                {/* Existing Answers */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {existingAns.map((answer, index) => (
+                        <div
+                            key={index}
+                            className="bg-white p-6 rounded-md shadow-md hover:shadow-lg transition duration-300"
+                        >
+                            <h4 className="text-xl font-semibold text-gray-800 mb-2">{answer.title}</h4>
+                            <p className="text-gray-600 truncate mb-4">{answer.body}</p>
+                            <button
+                                onClick={() => {
+                                    localStorage.setItem(
+                                        "selectedAnswer",
+                                        JSON.stringify({ title: answer.title, body: answer.body, author_name: answer.author.name, date: answer.createdAt })
+                                    );
+                                    navigate("/readAnswer");
+                                }}
+                                className="text-blue-500 font-medium hover:underline"
+                            >
+                                Read More
+                            </button>
+                        </div>
+                    ))}
+                </div>
             </div>
-
-            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-screen-md">
-                {existingAns.map((answer, index) => (
-                    <div
-                        key={index}
-                        className="bg-white p-6 rounded-lg shadow-md cursor-pointer hover:shadow-xl transition duration-300"
-                    >
-                        <h3 className="text-2xl font-semibold text-gray-800 mb-2">{answer.title}</h3>
-                        <p className="text-gray-700 mb-4 truncate">{answer.body}</p>
-                        {/* Wrap the button with Link to handle navigation */}
-
-                        <Link to={{
-                            pathname: "/readAnswer",
-                            state: { title: answer.title, body: answer.body }
-                        }}>
-                            <button>Read More</button>
-                        </Link>
-
-
-                    </div>
-                ))}
-            </div>
-
         </div>
     );
 };
