@@ -12,7 +12,7 @@ export default function BlogsPage() {
     );
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/blogs/getBlogs', {
+        fetch('http://localhost:6000/api/blogs/getBlogs', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -33,21 +33,28 @@ export default function BlogsPage() {
             });
     }, []);
 
-
-
     return (
         <div className="bg-gradient-to-r from-indigo-200 via-purple-300 to-pink-200 min-h-screen p-6">
             <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-8">Blogs</h1>
 
-            {/* Search Bar */}
-            <div className="mb-6">
+            {/* Flex container for Search Bar and Post Blog button */}
+            <div className="flex justify-between items-center mb-6">
+                {/* Search Bar */}
                 <input
                     type="text"
                     placeholder="Search questions..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)} // Update search query
-                    className="w-full px-4 py-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    className="w-2/3 px-4 py-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 />
+
+                {/* Post Blog Button */}
+                <button
+                    onClick={() => navigate("/postBlog")}
+                    className="bg-green-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-green-700 transition-colors duration-300"
+                >
+                    Post Blog
+                </button>
             </div>
 
             <div className="space-y-6">
@@ -59,7 +66,6 @@ export default function BlogsPage() {
                         {/* Flex container for title and button */}
                         <div className="flex justify-between items-center mb-4">
                             <h3 className="text-2xl font-semibold text-gray-800">{blogs.title}</h3>
-
 
                             <button
                                 onClick={() => {
@@ -73,7 +79,6 @@ export default function BlogsPage() {
                             >
                                 Read More
                             </button>
-
                         </div>
 
                         <p className="text-base text-gray-700 mb-4">{blogs.body}</p>
@@ -90,7 +95,6 @@ export default function BlogsPage() {
                         </div>
                     </div>
                 ))}
-
 
                 {filteredQuestions.length === 0 && (
                     <div className="text-center text-gray-500 text-lg">No Blogs found.</div>

@@ -22,7 +22,7 @@ const PostQuestion = () => {
     };
 
     function postQuery(data) {
-        fetch('http://localhost:5000/api/askquestion/postQuestion', {
+        fetch('http://localhost:6000/api/askquestion/postQuestion', {
             method: "POST",
             body: JSON.stringify(data),  // Send the question data (title, body, tags)
             headers: {

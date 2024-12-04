@@ -22,7 +22,7 @@ const PostBlog = () => {
     };
 
     function postBlogs(data) {
-        fetch('http://localhost:5000/api/blogs/postBlogs', {
+        fetch('http://localhost:6000/api/blogs/postBlogs', {
             method: "POST",
             body: JSON.stringify(data),  // Send the question data (title, body, tags)
             headers: {
@@ -38,7 +38,7 @@ const PostBlog = () => {
             })
             .then((data) => {
                 console.log("Question posted successfully:", data);
-                navigate('/home');
+                navigate('/getBlog')
             })
             .catch((err) => {
                 console.error("Error posting question:", err);

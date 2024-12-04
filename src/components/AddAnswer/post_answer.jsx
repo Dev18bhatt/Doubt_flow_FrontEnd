@@ -15,7 +15,7 @@ const PostAnswer = () => {
         const fetchQuestion = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:5000/api/askquestion/getspecificQuestion/${param.id}`,
+                    `http://localhost:6000/api/askquestion/getspecificQuestion/${param.id}`,
                     {
                         method: "GET",
                         headers: {
@@ -39,7 +39,7 @@ const PostAnswer = () => {
         const fetchAllAnswers = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:5000/api/answer/${param.id}/getanswer`,
+                    `http://localhost:6000/api/answer/${param.id}/getanswer`,
                     {
                         method: "GET",
                         headers: {
@@ -67,7 +67,7 @@ const PostAnswer = () => {
     const handlePostAnswer = async () => {
         setIsSubmitting(true);
         try {
-            const response = await fetch(`http://localhost:5000/api/answer/${param.id}`, {
+            const response = await fetch(`http://localhost:6000/api/answer/${param.id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

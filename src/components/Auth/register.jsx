@@ -19,7 +19,7 @@ const SignUpPage = () => {
 
     function handleOnSubmit(event) {
         event.preventDefault();
-        fetch("http://localhost:5000/api/auth/signup", {
+        fetch("http://localhost:6000/api/auth/signup", {
             method: "POST",
             body: JSON.stringify(userDetails),
             headers: {

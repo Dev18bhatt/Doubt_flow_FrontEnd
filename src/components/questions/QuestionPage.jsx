@@ -11,7 +11,7 @@ export default function QuestionPage() {
     );
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/askquestion/getAllQuestion', {
+        fetch('http://localhost:6000/api/askquestion/getAllQuestion', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

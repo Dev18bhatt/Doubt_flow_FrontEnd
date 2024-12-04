@@ -29,7 +29,7 @@ const LoginPage = () => {
             return;
         }
 
-        fetch("http://localhost:5000/api/auth/login", {
+        fetch("http://localhost:6000/api/auth/login", {
             method: "POST",
             body: JSON.stringify(userDetails),
             headers: {

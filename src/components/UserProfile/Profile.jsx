@@ -17,7 +17,7 @@ export default function Profile() {
             const fetchProfile = async () => {
                 try {
                     const response = await fetch(
-                        "http://localhost:5000/api/profile/getUserprofile",
+                        "http://localhost:6000/api/profile/getUserprofile",
                         {
                             method: "GET",
                             headers: {

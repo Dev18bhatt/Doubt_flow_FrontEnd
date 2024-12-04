@@ -16,7 +16,7 @@ export default function UpdateProfile() {
         const fetchProfile = async () => {
             try {
                 const response = await fetch(
-                    "http://localhost:5000/api/profile/getUserprofile",
+                    "http://localhost:6000/api/profile/getUserprofile",
                     {
                         method: "GET",
                         headers: {
@@ -56,7 +56,7 @@ export default function UpdateProfile() {
     // Update user profile
 
     function update() {
-        fetch('http://localhost:5000/api/profile/updateProfile', {
+        fetch('http://localhost:6000/api/profile/updateProfile', {
             method: "PUT", // Assuming POST is used for update
             body: JSON.stringify(userData),
             headers: {
