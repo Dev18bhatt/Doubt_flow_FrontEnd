@@ -13,7 +13,16 @@ const Home = () => {
                         <Link to="/profilepage" className="hover:text-blue-300 transition duration-300">Profile</Link>
                     </li>
                     <li>
-                        <button className="hover:text-red-400 transition duration-300">Logout</button>
+                        {/* <button onClick={() => {
+                            localStorage.setItem("token", "");
+                            navigator('/login');
+                        }} className="hover:text-red-400 transition duration-300">Logout</button> */}
+                        <li>
+                            <Link to="/login" className="hover:text-blue-300 transition duration-300">  <button onClick={() => {
+                                localStorage.setItem("token", "");
+                                navigator('/login');
+                            }} className="hover:text-red-400 transition duration-300">Logout</button></Link>
+                        </li>
                     </li>
                 </ul>
             </nav>

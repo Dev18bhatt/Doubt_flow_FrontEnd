@@ -28,8 +28,7 @@ const LoginPage = () => {
             setError("Please fill in all fields.");
             return;
         }
-
-        fetch("http://localhost:6000/api/auth/login", {
+        fetch("http://localhost:5000/api/auth/login", {
             method: "POST",
             body: JSON.stringify(userDetails),
             headers: {
@@ -38,32 +37,20 @@ const LoginPage = () => {
         })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error("Login failed. Please check your credentials.");
+                    throw new Error(`Login failed: ${response.statusText}`);
                 }
                 return response.json();
             })
             .then((data) => {
                 if (data && data.token) {
-                    console.log("Response data:", data);
-                    localStorage.setItem('details', data.user.name);
-                    console.log(localStorage.getItem('details'));
+                    // Handle successful login
                     localStorage.setItem("token", data.token);
-                    console.log("token  is  : " + localStorage.getItem("token"));
-
-                    setSuccessMessage("Login Successful!");
-                    setError(null);
-                    setUserDetails({
-                        email: "",
-                        password: "",
-                    });
                     navigate('/home');
-
                 }
-
             })
             .catch((err) => {
-                console.error("Error:", err);
-                setError(err.message);
+                console.error("Network error:", err);
+                setError(`Error: ${err.message}`);
                 setSuccessMessage(null);
             });
     }
@@ -79,7 +66,7 @@ const LoginPage = () => {
                 {/* Success Message */}
                 {successMessage && <p className="text-green-500 text-sm">{successMessage}</p>}
 
-                <form className="space-y-4" onSubmit={handleOnSubmit}>
+                <div className="space-y-4">
                     {/* Name */}
 
 
@@ -119,10 +106,11 @@ const LoginPage = () => {
                     <button
                         type="submit"
                         className="w-full py-2 mt-4 font-semibold text-black bg-blue-500 rounded-lg hover:bg-blue-600"
+                        onClick={handleOnSubmit}
                     >
                         Login
                     </button>
-                </form>
+                </div>
             </div>
         </div>
     );

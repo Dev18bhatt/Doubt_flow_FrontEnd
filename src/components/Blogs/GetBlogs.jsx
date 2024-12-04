@@ -12,7 +12,7 @@ export default function BlogsPage() {
     );
 
     useEffect(() => {
-        fetch('http://localhost:6000/api/blogs/getBlogs', {
+        fetch('http://localhost:5000/api/blogs/getBlogs', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
