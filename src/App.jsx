@@ -31,6 +31,8 @@ function App() {
         <Route path="/register" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/home" element={<PrivateRoute Component={Home} />} />
+
+
         <Route path="/questionPage" element={<PrivateRoute Component={QuestionPage} />} />
         <Route path="/postquestionpage" element={<PrivateRoute Component={PostQuestion} />} />
         <Route path="/profilepage" element={<PrivateRoute Component={Profile} />} />

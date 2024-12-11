@@ -1,0 +1,44 @@
+.chat-window {
+    width: 400px;
+    height: 500px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .input-section {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+  .input-section input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .input-section button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .input-section button:disabled {
+    background-color: #ddd;
+  }
+  
+  .ai {
+    background-color: #f1f1f1;
+    padding: 5px;
+    margin: 5px;
+  }
+  
+  .user {
+    background-color: #d1ffd6;
+    padding: 5px;
+    margin: 5px;
+    text-align: right;
+  }
+  
